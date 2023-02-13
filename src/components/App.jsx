@@ -18,7 +18,6 @@ export const App = () => {
   const [currentSearch, setCurrentSearch] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalIMG, setModalIMG] = useState('');
 
@@ -43,7 +42,7 @@ export const App = () => {
       setLoadButton(pageNumber < Math.ceil(totalHits / 12));
       setImages([...images, ...hits]);
     } catch (error) {
-      setErrorMessage(error.message);
+      toast.error(error.message, settings);
     } finally {
       setLoading(false);
     }
