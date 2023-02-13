@@ -32,21 +32,7 @@ export const App = () => {
     setCurrentSearch(searchQuery);
     setLoadButton(null);
   };
-  const getImages = async () => {
-    try {
-      setLoading(true);
-      const { hits, totalHits } = await getImageList(currentSearch, pageNumber);
-      if (hits.length === 0) {
-        toast.error('We did not find an image for your query!', settings);
-      }
-      setLoadButton(pageNumber < Math.ceil(totalHits / 12));
-      setImages([...images, ...hits]);
-    } catch (error) {
-      toast.error(error.message, settings);
-    } finally {
-      setLoading(false);
-    }
-  };
+
   const onLoadMoreClick = async () => {
     setPageNumber(pageNumber + 1);
   };
@@ -62,6 +48,24 @@ export const App = () => {
 
   useEffect(() => {
     if (!currentSearch) return;
+    const getImages = async () => {
+      try {
+        setLoading(true);
+        const { hits, totalHits } = await getImageList(
+          currentSearch,
+          pageNumber
+        );
+        if (hits.length === 0) {
+          toast.error('We did not find an image for your query!', settings);
+        }
+        setLoadButton(pageNumber < Math.ceil(totalHits / 12));
+        setImages([...images, ...hits]);
+      } catch (error) {
+        toast.error(error.message, settings);
+      } finally {
+        setLoading(false);
+      }
+    };
     getImages();
   }, [currentSearch, pageNumber]);
 
