@@ -59,7 +59,7 @@ export const App = () => {
           toast.error('We did not find an image for your query!', settings);
         }
         setLoadButton(pageNumber < Math.ceil(totalHits / 12));
-        setImages([...images, ...hits]);
+        setImages(prevImages => [...prevImages, ...hits]);
       } catch (error) {
         toast.error(error.message, settings);
       } finally {
