@@ -47,7 +47,7 @@ export class App extends Component {
           currentSearch,
           pageNumber
         );
-        console.log(hits);
+
         if (hits.length === 0) {
           toast.error('We did not find an image for your query!', settings);
         }
